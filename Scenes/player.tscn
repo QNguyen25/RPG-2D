@@ -1,0 +1,82 @@
+[gd_scene load_steps=13 format=3 uid="uid://jrix57jdh3v7"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_bdxhx"]
+[ext_resource type="Texture2D" uid="uid://d0djok8y1fmuk" path="res://Assets/Player/Player Front Sheet.png" id="1_ryc47"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2fdqo"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u3hwb"]
+atlas = ExtResource("1_ryc47")
+region = Rect2(0, 44, 48, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_le366"]
+atlas = ExtResource("1_ryc47")
+region = Rect2(48, 44, 48, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ipput"]
+atlas = ExtResource("1_ryc47")
+region = Rect2(96, 44, 48, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qunnn"]
+atlas = ExtResource("1_ryc47")
+region = Rect2(144, 44, 48, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hwnp6"]
+atlas = ExtResource("1_ryc47")
+region = Rect2(192, 44, 48, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_opmmx"]
+atlas = ExtResource("1_ryc47")
+region = Rect2(240, 44, 48, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yxdyn"]
+atlas = ExtResource("1_ryc47")
+region = Rect2(288, 44, 48, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_knyia"]
+atlas = ExtResource("1_ryc47")
+region = Rect2(336, 44, 48, 44)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_02gxf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u3hwb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_le366")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ipput")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qunnn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hwnp6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_opmmx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yxdyn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_knyia")
+}],
+"loop": true,
+"name": &"walk_front",
+"speed": 10.0
+}]
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_bdxhx")
+speed = null
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_2fdqo")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_02gxf")
+animation = &"walk_front"
+frame_progress = 0.417519
