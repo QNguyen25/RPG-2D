@@ -2,13 +2,51 @@ extends CharacterBody2D
 
 
 @export var speed = 50.0
+@onready var animation_sprite = $AnimatedSprite2D
+var new_direction: Vector2
+var animation
 
 
 func _physics_process(delta):
 	var direction: Vector2 = Vector2.ZERO
-	direction.x = Input.get_action_strength("right") - Input.get_action_strength("left")
-	direction.y = Input.get_action_strength("up") - Input.get_action_strength("down")
+	direction.x = Input.get_action_strength("right") - Input.get_action_strength("left") 
+	direction.y = Input.get_action_strength("down") - Input.get_action_strength("up") 
 	
-	if abs(direction.x) == 1 and abs(direction.y) == 1
+	if abs(direction.x) == 1 and abs(direction.y) == 1:
+		direction = direction.normalized()
 
-	move_and_slide()
+	var movement = direction * speed * delta 
+
+	move_and_collide(movement)
+	
+	player_animations(direction)
+	
+	
+func player_animations(direction: Vector2):
+	if direction != Vector2.ZERO:
+		new_direction = direction
+		animation = "walk_" + returned_direction(new_direction)
+		animation_sprite.play(animation)
+	else:
+		animation = "idle_" + returned_direction(new_direction)
+		animation_sprite.play(animation)
+		
+func returned_direction(direction: Vector2):
+	var normalized_direction = direction.normalized()
+	var default_return = "side"
+	
+	if normalized_direction.y > 0:
+		return "front"
+		
+	elif normalized_direction.y < 0:
+		return "back"
+		
+	elif normalized_direction.x > 0:
+		animation_sprite.flip_h = false
+		return "side"
+		
+	elif normalized_direction.x < 0:
+		animation_sprite.flip_h = true
+		return "side"
+		
+	return default_return
