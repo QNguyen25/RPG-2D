@@ -3,8 +3,9 @@ extends CharacterBody2D
 
 @export var speed = 50.0
 @onready var animation_sprite = $AnimatedSprite2D
-var new_direction: Vector2
+var new_direction: Vector2 = Vector2.ZERO
 var animation
+var is_attacking = false
 
 
 func _physics_process(delta):
@@ -17,9 +18,9 @@ func _physics_process(delta):
 
 	var movement = direction * speed * delta 
 
-	move_and_collide(movement)
-	
-	player_animations(direction)
+	if is_attacking == false:
+		move_and_collide(movement)
+		player_animations(direction)
 	
 	
 func player_animations(direction: Vector2):
@@ -50,3 +51,8 @@ func returned_direction(direction: Vector2):
 		return "side"
 		
 	return default_return
+	
+func _input(event):
+	if event.is_action_pressed("shoot"):
+		is_attacking = true 
+		animation = "attack_" + returned_direction(new_direction)
