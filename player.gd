@@ -39,19 +39,41 @@ func returned_direction(direction: Vector2):
 	var normalized_direction = direction.normalized()
 	var default_return = "side"
 	
-	if normalized_direction.y > 0:
+	if normalized_direction.y > 0 and normalized_direction.x == 0 :
 		return "front"
 		
-	elif normalized_direction.y < 0:
+	elif normalized_direction.y < 0 and normalized_direction.x == 0 :
 		return "back"
 		
-	elif normalized_direction.x > 0:
+	elif normalized_direction.x > 0 and normalized_direction.y == 0 :
 		animation_sprite.flip_h = false
 		return "side"
 		
-	elif normalized_direction.x < 0:
+	elif normalized_direction.x < 0 and normalized_direction.y == 0 :
 		animation_sprite.flip_h = true
 		return "side"
+		
+		#### diagonal movement
+		
+	elif normalized_direction.y > 0 and normalized_direction.x > 0 :
+		animation_sprite.flip_h = true
+		return "AngleDown"
+		
+	elif normalized_direction.y > 0 and normalized_direction.x < 0 :
+		animation_sprite.flip_h = true
+		return "AngleDown"
+		
+	elif normalized_direction.x > 0 and normalized_direction.y > 0 :
+		animation_sprite.flip_h = true
+		return "AngleDown"
+		
+	elif normalized_direction.x > 0 and normalized_direction.y < 0 :
+		animation_sprite.flip_h = true
+		return "AngleDown"
+		
+		
+		
+		
 		
 	return default_return
 	
