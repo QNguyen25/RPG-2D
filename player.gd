@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 
 @export var speed = 50.0
+@export var recoil = -5.0
 @onready var animation_sprite = $AnimatedSprite2D
 var new_direction: Vector2 = Vector2.ZERO
 var animation
@@ -16,9 +17,10 @@ func _physics_process(delta):
 	if abs(direction.x) == 1 and abs(direction.y) == 1:
 		direction = direction.normalized()
 
-	var movement = direction * speed * delta 
-
+	#var movement = direction * speed * delta 
+	print(is_attacking)
 	if is_attacking == false:
+		var movement = direction * speed * delta
 		move_and_collide(movement)
 		player_animations(direction)
 	
@@ -31,6 +33,7 @@ func player_animations(direction: Vector2):
 	else:
 		animation = "idle_" + returned_direction(new_direction)
 		animation_sprite.play(animation)
+		
 		
 func returned_direction(direction: Vector2):
 	var normalized_direction = direction.normalized()
@@ -54,5 +57,11 @@ func returned_direction(direction: Vector2):
 	
 func _input(event):
 	if event.is_action_pressed("shoot"):
+		print("shooting")
 		is_attacking = true 
 		animation = "attack_" + returned_direction(new_direction)
+		animation_sprite.play(animation)
+		
+func _on_animated_sprite_2d_animation_finished():
+	print("Finished animation")
+	is_attacking = false
