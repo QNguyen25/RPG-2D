@@ -16,7 +16,14 @@ func _physics_process(delta):
 	
 	if abs(direction.x) == 1 and abs(direction.y) == 1:
 		direction = direction.normalized()
-
+	
+	if Input.is_action_pressed("sprint"):
+		speed = 100
+		animation_sprite.speed_scale = 2
+	elif Input.is_action_just_released("sprint"):
+		speed = 50
+		animation_sprite.speed_scale = 1
+		
 	#var movement = direction * speed * delta 
 	print(is_attacking)
 	if is_attacking == false:
@@ -57,19 +64,19 @@ func returned_direction(direction: Vector2):
 		
 	elif normalized_direction.y > 0 and normalized_direction.x > 0 :
 		animation_sprite.flip_h = true
-		return "AngleDown"
+		return "angleDown"
 		
 	elif normalized_direction.y > 0 and normalized_direction.x < 0 :
 		animation_sprite.flip_h = true
-		return "AngleDown"
+		return "angleDown"
 		
 	elif normalized_direction.x > 0 and normalized_direction.y > 0 :
 		animation_sprite.flip_h = true
-		return "AngleDown"
+		return "angleUp"
 		
 	elif normalized_direction.x > 0 and normalized_direction.y < 0 :
 		animation_sprite.flip_h = true
-		return "AngleDown"
+		return "angleUp"
 		
 		
 		
