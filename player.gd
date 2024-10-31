@@ -60,24 +60,6 @@ func returned_direction(direction: Vector2):
 		animation_sprite.flip_h = true
 		return "side"
 		
-		#### diagonal movement
-		
-	elif normalized_direction.y > 0 and normalized_direction.x > 0 :
-		animation_sprite.flip_h = true
-		return "angleDown"
-		
-	elif normalized_direction.y > 0 and normalized_direction.x < 0 :
-		animation_sprite.flip_h = true
-		return "angleDown"
-		
-	elif normalized_direction.x > 0 and normalized_direction.y > 0 :
-		animation_sprite.flip_h = true
-		return "angleUp"
-		
-	elif normalized_direction.x > 0 and normalized_direction.y < 0 :
-		animation_sprite.flip_h = true
-		return "angleUp"
-		
 		
 		
 		

@@ -607,8 +607,10 @@ shape = SubResource("CapsuleShape2D_2fdqo")
 position = Vector2(0, -1.25)
 scale = Vector2(1, 0.954545)
 sprite_frames = SubResource("SpriteFrames_02gxf")
-animation = &"attack_back"
+animation = &"walk_side"
 
 [node name="Timer" type="Timer" parent="."]
+autostart = true
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
