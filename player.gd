@@ -1,5 +1,15 @@
 extends CharacterBody2D
 
+var health = 100
+var max_health = 100
+var regen_health = 10
+
+var stamina = 100
+var max_stamina = 100
+var regen_stamina = 10
+
+signal health_updated
+signal stamina_updated
 
 @export var speed = 50.0
 @export var recoil = -5.0
@@ -9,6 +19,20 @@ var animation
 var is_attacking = false
 
 
+
+func _process(delta):
+	var updated_health = min(health + regen_health, max_health)
+	if updated_health != health:
+		health = updated_health
+		health_updated.emit(health, max_health)
+		
+	var updated_stamina = min(stamina + regen_stamina * delta, max_stamina)
+	if updated_stamina != stamina:
+		stamina= updated_stamina
+		stamina_updated.emit(stamina, max_stamina)
+	
+	
+	
 func _physics_process(delta):
 	var direction: Vector2 = Vector2.ZERO
 	direction.x = Input.get_action_strength("right") - Input.get_action_strength("left") 
@@ -18,18 +42,23 @@ func _physics_process(delta):
 		direction = direction.normalized()
 	
 	if Input.is_action_pressed("sprint"):
-		speed = 100
+		if stamina >= 0:
+			speed = 100
 		animation_sprite.speed_scale = 2
+		stamina = stamina - 5
+		stamina_updated.emit(stamina, max_stamina)
 	elif Input.is_action_just_released("sprint"):
 		speed = 50
 		animation_sprite.speed_scale = 1
-		
+	
 	#var movement = direction * speed * delta 
 	print(is_attacking)
 	if is_attacking == false:
 		var movement = direction * speed * delta
 		move_and_collide(movement)
 		player_animations(direction)
+	
+	
 	
 	
 func player_animations(direction: Vector2):
@@ -40,8 +69,10 @@ func player_animations(direction: Vector2):
 	else:
 		animation = "idle_" + returned_direction(new_direction)
 		animation_sprite.play(animation)
-		
-		
+	
+	
+	
+	
 func returned_direction(direction: Vector2):
 	var normalized_direction = direction.normalized()
 	var default_return = "side"
@@ -59,12 +90,11 @@ func returned_direction(direction: Vector2):
 	elif normalized_direction.x < 0 and normalized_direction.y == 0 :
 		animation_sprite.flip_h = true
 		return "side"
-		
-		
-		
-		
-		
+	
+	
 	return default_return
+	
+	
 	
 func _input(event):
 	if event.is_action_pressed("shoot"):
@@ -72,6 +102,8 @@ func _input(event):
 		is_attacking = true 
 		animation = "attack_" + returned_direction(new_direction)
 		animation_sprite.play(animation)
+		
+		
 		
 func _on_animated_sprite_2d_animation_finished():
 	print("Finished animation")

@@ -1,7 +1,9 @@
 extends CharacterBody2D
 
-
-@export var speed = 100.0
+var health = 100
+var max_health = 100
+var regen_health = 1
+@export var speed = 50.0
 var direction: Vector2
 var new_direction = Vector2(0, 1)
 
@@ -39,17 +41,15 @@ func _on_timer_timeout():
 	#attack
 	if player_distance.length() <= 20:
 		new_direction = player_distance.normalized()
-		sync_new_direction()
 		direction = Vector2.ZERO
 	#chasea
 	
 	elif  player_distance.length() <= 100 and timer == 0:
 		direction = player_distance.normalized()
-		sync_new_direction()
 		
 	#random room
 	
-	elif timer ==0:
+	elif timer == 0:
 		var random_direction = rng.randf()
 		#chill
 		if random_direction < 0.05:
@@ -57,7 +57,6 @@ func _on_timer_timeout():
 		#hustle
 		elif random_direction < 0.1:
 			direction = Vector2.DOWN.rotated(rng.randf() * 2 * PI)
-		sync_new_direction()
 		
 func enemy_animations(direction: Vector2):
 	if direction != Vector2.ZERO:
@@ -71,6 +70,16 @@ func enemy_animations(direction: Vector2):
 func returned_direction(direction: Vector2):
 	var normalized_direction = direction.normalized()
 	var default_return = "side"
+	print(normalized_direction)
+	
+	if abs(normalized_direction.x) > abs(normalized_direction.y):
+		if normalized_direction.x > 0:
+			animation_sprite.flip_h = false
+			return "side"
+			
+		else:
+			animation_sprite.flip_h = true
+			return "side"
 	
 	if normalized_direction.y > 0 and normalized_direction.x == 0 :
 		return "front"
@@ -78,19 +87,7 @@ func returned_direction(direction: Vector2):
 	elif normalized_direction.y < 0 and normalized_direction.x == 0 :
 		return "back"
 		
-	elif normalized_direction.x > 0 and normalized_direction.y == 0 :
-		animation_sprite.flip_h = false
-		return "side"
-		
-	elif normalized_direction.x < 0 and normalized_direction.y == 0 :
-		animation_sprite.flip_h = true
-		return "side"
-		
 		
 	return default_return
 	
-	
-func sync_new_direction():
-		if direction != Vector2.ZERO:
-			new_direction = direction.normalized()
 
