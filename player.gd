@@ -13,6 +13,7 @@ signal stamina_updated
 
 @export var speed = 50.0
 @export var recoil = -5.0
+@export var stamina_decrease = 5
 @onready var animation_sprite = $AnimatedSprite2D
 var new_direction: Vector2 = Vector2.ZERO
 var animation
@@ -45,8 +46,9 @@ func _physics_process(delta):
 		if stamina >= 0:
 			speed = 100
 		animation_sprite.speed_scale = 2
-		stamina = stamina - 5
+		stamina = stamina - stamina_decrease
 		stamina_updated.emit(stamina, max_stamina)
+		
 	elif Input.is_action_just_released("sprint"):
 		speed = 50
 		animation_sprite.speed_scale = 1
@@ -108,3 +110,5 @@ func _input(event):
 func _on_animated_sprite_2d_animation_finished():
 	print("Finished animation")
 	is_attacking = false
+	
+

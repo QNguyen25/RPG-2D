@@ -1,10 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://dscficci8dhyr"]
+[gd_scene load_steps=14 format=3 uid="uid://dscficci8dhyr"]
 
 [ext_resource type="Texture2D" uid="uid://ckx6cfsnq6t2b" path="res://Assets/Atlas.png" id="1_jucea"]
+[ext_resource type="Script" path="res://main.gd" id="1_kdt6c"]
 [ext_resource type="PackedScene" uid="uid://jrix57jdh3v7" path="res://Scenes/player.tscn" id="2_e37vk"]
 [ext_resource type="Texture2D" uid="uid://fqukk3j6s0xu" path="res://Assets/Interior.png" id="2_ntbq1"]
 [ext_resource type="Texture2D" uid="uid://fgjxr4il205f" path="res://Assets/Water.png" id="3_o6vx0"]
 [ext_resource type="PackedScene" uid="uid://dymtehy2fyqun" path="res://Scenes/enemy.tscn" id="5_abr75"]
+[ext_resource type="Texture2D" uid="uid://cxvqu4252xlsd" path="res://bulletUP.png" id="7_5ww3a"]
+[ext_resource type="Texture2D" uid="uid://bwou77y40enkh" path="res://Assets/Icons/potion_03a.png" id="8_3kmxk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hcljq"]
 texture = ExtResource("1_jucea")
@@ -5323,9 +5326,13 @@ sources/0 = SubResource("TileSetAtlasSource_hcljq")
 sources/1 = SubResource("TileSetAtlasSource_kxvvj")
 sources/2 = SubResource("TileSetAtlasSource_oweqb")
 
+[sub_resource type="LabelSettings" id="LabelSettings_oow0l"]
+outline_color = Color(0, 0, 0, 1)
+
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
-position = Vector2(-6, 6)
+position = Vector2(-12, 5)
+script = ExtResource("1_kdt6c")
 
 [node name="TileMap" type="TileMap" parent="."]
 show_behind_parent = true
@@ -5391,3 +5398,46 @@ layout_mode = 0
 offset_right = 100.0
 offset_bottom = 10.0
 color = Color(1, 0.443137, 0.054902, 1)
+
+[node name="Top icons" type="HBoxContainer" parent="UI"]
+offset_left = 14.0
+offset_top = 2.0
+offset_right = 199.0
+offset_bottom = 25.0
+theme_override_constants/separation = 20
+
+[node name="Ammocontainer" type="HBoxContainer" parent="UI/Top icons"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="AmmoLabel" type="Label" parent="UI/Top icons/Ammocontainer"]
+layout_mode = 2
+text = "10
+
+"
+label_settings = SubResource("LabelSettings_oow0l")
+
+[node name="Ammo" type="Sprite2D" parent="UI/Top icons/Ammocontainer"]
+position = Vector2(-11, 0)
+scale = Vector2(1.125, 1)
+texture = ExtResource("7_5ww3a")
+centered = false
+flip_h = true
+
+[node name="RevivesLabel2" type="HBoxContainer" parent="UI/Top icons"]
+layout_mode = 2
+theme_override_constants/separation = 60
+
+[node name="RevivesIcon" type="Sprite2D" parent="UI/Top icons/RevivesLabel2"]
+position = Vector2(-16, 4)
+texture = ExtResource("8_3kmxk")
+centered = false
+
+[node name="RevivesLabel" type="Label" parent="UI/Top icons/RevivesLabel2"]
+layout_mode = 2
+text = "243
+"
+label_settings = SubResource("LabelSettings_oow0l")
+
+[connection signal="health_updated" from="Player" to="." method="_on_player_health_updated"]
+[connection signal="stamina_updated" from="Player" to="." method="_on_player_stamina_updated"]
