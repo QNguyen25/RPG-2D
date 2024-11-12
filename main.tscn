@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dscficci8dhyr"]
+[gd_scene load_steps=18 format=3 uid="uid://dscficci8dhyr"]
 
 [ext_resource type="Texture2D" uid="uid://ckx6cfsnq6t2b" path="res://Assets/Atlas.png" id="1_jucea"]
 [ext_resource type="Script" path="res://main.gd" id="1_kdt6c"]
@@ -7,7 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://fgjxr4il205f" path="res://Assets/Water.png" id="3_o6vx0"]
 [ext_resource type="PackedScene" uid="uid://dymtehy2fyqun" path="res://Scenes/enemy.tscn" id="5_abr75"]
 [ext_resource type="Texture2D" uid="uid://cxvqu4252xlsd" path="res://bulletUP.png" id="7_5ww3a"]
-[ext_resource type="Texture2D" uid="uid://bwou77y40enkh" path="res://Assets/Icons/potion_03a.png" id="8_3kmxk"]
+[ext_resource type="Texture2D" uid="uid://bmlyinn8v0ssg" path="res://Assets/Icons/potion_01a.png" id="8_xovdi"]
+[ext_resource type="Texture2D" uid="uid://c165g8lnh74xn" path="res://Assets/Icons/potion_02b.png" id="9_i5evb"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hcljq"]
 texture = ExtResource("1_jucea")
@@ -5326,12 +5327,36 @@ sources/0 = SubResource("TileSetAtlasSource_hcljq")
 sources/1 = SubResource("TileSetAtlasSource_kxvvj")
 sources/2 = SubResource("TileSetAtlasSource_oweqb")
 
-[sub_resource type="LabelSettings" id="LabelSettings_oow0l"]
-outline_color = Color(0, 0, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vdgiv"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_md7vf"]
+bg_color = Color(0.0431373, 0.917647, 0.384314, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jqque"]
+bg_color = Color(1, 0.643137, 0.305882, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.0110876, 0.0110876, 0.0110876, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_77h81"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
-position = Vector2(-12, 5)
+position = Vector2(-45, -41)
 script = ExtResource("1_kdt6c")
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -5359,85 +5384,107 @@ position = Vector2(435, 366)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="Health" type="ColorRect" parent="UI"]
-anchors_preset = 2
-anchor_top = 1.0
+[node name="UIMargin" type="MarginContainer" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -10.0
-offset_right = 100.0
-grow_vertical = 0
-color = Color(0.988235, 0, 0.0313726, 1)
-
-[node name="Value" type="ColorRect" parent="UI/Health"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -50.0
-offset_top = -5.0
-offset_right = 50.0
-offset_bottom = 5.0
+offset_left = -2.0
+offset_top = -1.0
+offset_right = -2.0
+offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 1, 0, 1)
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
 
-[node name="Stamina" type="ColorRect" parent="UI"]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -20.0
-offset_right = 100.0
-offset_bottom = -10.0
-grow_vertical = 0
-color = Color(0.915907, 0.792264, 0.629072, 1)
+[node name="VBox" type="VBoxContainer" parent="UI/UIMargin"]
+clip_contents = true
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+size_flags_vertical = 8
+size_flags_stretch_ratio = 0.0
+theme_override_constants/separation = 6
 
-[node name="Value" type="ColorRect" parent="UI/Stamina"]
+[node name="HealthBar" type="ProgressBar" parent="UI/UIMargin/VBox"]
+unique_name_in_owner = true
+clip_contents = true
+custom_minimum_size = Vector2(100, 10)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_vdgiv")
+theme_override_styles/fill = SubResource("StyleBoxFlat_md7vf")
+value = 50.0
+
+[node name="StaminaBar" type="ProgressBar" parent="UI/UIMargin/VBox"]
+unique_name_in_owner = true
+clip_contents = true
+custom_minimum_size = Vector2(100, 10)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_vdgiv")
+theme_override_styles/fill = SubResource("StyleBoxFlat_jqque")
+value = 50.0
+
+[node name="Panel" type="Panel" parent="UI/UIMargin"]
+custom_minimum_size = Vector2(160, 23)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_77h81")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/UIMargin/Panel"]
+custom_minimum_size = Vector2(160, 23)
 layout_mode = 0
-offset_right = 100.0
-offset_bottom = 10.0
-color = Color(1, 0.443137, 0.054902, 1)
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="Top icons" type="HBoxContainer" parent="UI"]
-offset_left = 14.0
-offset_top = 2.0
-offset_right = 199.0
-offset_bottom = 25.0
-theme_override_constants/separation = 20
-
-[node name="Ammocontainer" type="HBoxContainer" parent="UI/Top icons"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/UIMargin/Panel"]
 layout_mode = 2
-theme_override_constants/separation = 20
+offset_right = 160.0
+offset_bottom = 23.0
+theme_override_constants/separation = 2
 
-[node name="AmmoLabel" type="Label" parent="UI/Top icons/Ammocontainer"]
+[node name="Ammo" type="HBoxContainer" parent="UI/UIMargin/Panel/HBoxContainer"]
 layout_mode = 2
-text = "10
 
-"
-label_settings = SubResource("LabelSettings_oow0l")
-
-[node name="Ammo" type="Sprite2D" parent="UI/Top icons/Ammocontainer"]
-position = Vector2(-11, 0)
-scale = Vector2(1.125, 1)
+[node name="TextureRect" type="TextureRect" parent="UI/UIMargin/Panel/HBoxContainer/Ammo"]
+layout_mode = 2
 texture = ExtResource("7_5ww3a")
-centered = false
-flip_h = true
+expand_mode = 2
+stretch_mode = 3
 
-[node name="RevivesLabel2" type="HBoxContainer" parent="UI/Top icons"]
+[node name="AmmoValue" type="Label" parent="UI/UIMargin/Panel/HBoxContainer/Ammo"]
+unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/separation = 60
+text = "00"
 
-[node name="RevivesIcon" type="Sprite2D" parent="UI/Top icons/RevivesLabel2"]
-position = Vector2(-16, 4)
-texture = ExtResource("8_3kmxk")
-centered = false
-
-[node name="RevivesLabel" type="Label" parent="UI/Top icons/RevivesLabel2"]
+[node name="Heals" type="HBoxContainer" parent="UI/UIMargin/Panel/HBoxContainer"]
 layout_mode = 2
-text = "243
-"
-label_settings = SubResource("LabelSettings_oow0l")
+
+[node name="TextureRect" type="TextureRect" parent="UI/UIMargin/Panel/HBoxContainer/Heals"]
+layout_mode = 2
+texture = ExtResource("8_xovdi")
+expand_mode = 2
+stretch_mode = 3
+
+[node name="HealValue" type="Label" parent="UI/UIMargin/Panel/HBoxContainer/Heals"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "00"
+
+[node name="Revives" type="HBoxContainer" parent="UI/UIMargin/Panel/HBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/UIMargin/Panel/HBoxContainer/Revives"]
+layout_mode = 2
+texture = ExtResource("9_i5evb")
+expand_mode = 2
+stretch_mode = 3
+
+[node name="ReviveValue" type="Label" parent="UI/UIMargin/Panel/HBoxContainer/Revives"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "00"
 
 [connection signal="health_updated" from="Player" to="." method="_on_player_health_updated"]
 [connection signal="stamina_updated" from="Player" to="." method="_on_player_stamina_updated"]
