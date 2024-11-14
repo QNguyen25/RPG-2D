@@ -6,14 +6,14 @@ var regen_health = 10
 
 var stamina = 100
 var max_stamina = 100
-var regen_stamina = 10
+var regen_stamina = 25
 
 signal health_updated
 signal stamina_updated
 
 @export var speed = 50.0
 @export var recoil = -5.0
-@export var stamina_decrease = 5
+@export var stamina_decrease = 0.8
 @onready var animation_sprite = $AnimatedSprite2D
 var new_direction: Vector2 = Vector2.ZERO
 var animation
@@ -22,12 +22,12 @@ var is_attacking = false
 
 
 func _process(delta):
-	var updated_health = min(health + regen_health, max_health)
+	var updated_health = min(health + regen_health * delta, 100, max_health)
 	if updated_health != health:
 		health = updated_health
 		health_updated.emit(health, max_health)
 		
-	var updated_stamina = min(stamina + regen_stamina * delta, max_stamina)
+	var updated_stamina = min(stamina + regen_stamina * delta, 100, max_stamina)
 	if updated_stamina != stamina:
 		stamina= updated_stamina
 		stamina_updated.emit(stamina, max_stamina)
@@ -42,7 +42,7 @@ func _physics_process(delta):
 	if abs(direction.x) == 1 and abs(direction.y) == 1:
 		direction = direction.normalized()
 	
-	if Input.is_action_pressed("sprint"):
+	if Input.is_action_pressed("sprint") && stamina >= 0:
 		if stamina >= 0:
 			speed = 100
 		animation_sprite.speed_scale = 2

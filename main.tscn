@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dscficci8dhyr"]
+[gd_scene load_steps=19 format=3 uid="uid://dscficci8dhyr"]
 
 [ext_resource type="Texture2D" uid="uid://ckx6cfsnq6t2b" path="res://Assets/Atlas.png" id="1_jucea"]
 [ext_resource type="Script" path="res://main.gd" id="1_kdt6c"]
@@ -5354,6 +5354,9 @@ border_color = Color(0.0110876, 0.0110876, 0.0110876, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_77h81"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7e774"]
+bg_color = Color(0.25098, 0.25098, 0.25098, 0)
+
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
 position = Vector2(-45, -41)
@@ -5390,8 +5393,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -2.0
 offset_top = -1.0
-offset_right = -2.0
-offset_bottom = -1.0
+offset_right = -156.0
+offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 3
@@ -5401,11 +5404,11 @@ theme_override_constants/margin_bottom = 3
 
 [node name="VBox" type="VBoxContainer" parent="UI/UIMargin"]
 clip_contents = true
-custom_minimum_size = Vector2(100, 20)
+custom_minimum_size = Vector2(160, 23)
 layout_mode = 2
 size_flags_vertical = 8
 size_flags_stretch_ratio = 0.0
-theme_override_constants/separation = 6
+theme_override_constants/separation = 1
 
 [node name="HealthBar" type="ProgressBar" parent="UI/UIMargin/VBox"]
 unique_name_in_owner = true
@@ -5414,7 +5417,7 @@ custom_minimum_size = Vector2(100, 10)
 layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_vdgiv")
 theme_override_styles/fill = SubResource("StyleBoxFlat_md7vf")
-value = 50.0
+value = 100.0
 
 [node name="StaminaBar" type="ProgressBar" parent="UI/UIMargin/VBox"]
 unique_name_in_owner = true
@@ -5423,7 +5426,7 @@ custom_minimum_size = Vector2(100, 10)
 layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_vdgiv")
 theme_override_styles/fill = SubResource("StyleBoxFlat_jqque")
-value = 50.0
+value = 100.0
 
 [node name="Panel" type="Panel" parent="UI/UIMargin"]
 custom_minimum_size = Vector2(160, 23)
@@ -5486,5 +5489,51 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "00"
 
-[connection signal="health_updated" from="Player" to="." method="_on_player_health_updated"]
-[connection signal="stamina_updated" from="Player" to="." method="_on_player_stamina_updated"]
+[node name="Panel3" type="Label" parent="UI"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -23.0
+offset_right = 28.0
+offset_bottom = 26.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_7e774")
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Panel3"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Panel3/VBoxContainer"]
+layout_mode = 2
+
+[node name="XP_Label" type="Label" parent="UI/Panel3/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "EXP:"
+vertical_alignment = 1
+
+[node name="XP_Value" type="Label" parent="UI/Panel3/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "100
+"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="UI/Panel3/VBoxContainer"]
+layout_mode = 2
+
+[node name="Lvl_Label" type="Label" parent="UI/Panel3/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Lvl:"
+
+[node name="Lvl_Value" type="Label" parent="UI/Panel3/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "100
+"
