@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=3 uid="uid://c76is48ywag8o"]
+
+[ext_resource type="Script" path="res://Bullet.gd" id="1_4h0ss"]
+[ext_resource type="Texture2D" uid="uid://c0x06v0gpmfeh" path="res://Assets/FX/Death Explosion.png" id="2_21kid"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s3lk2"]
+atlas = ExtResource("2_21kid")
+region = Rect2(0, 0, 50, 55)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gon8l"]
+atlas = ExtResource("2_21kid")
+region = Rect2(50, 0, 50, 55)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_utx23"]
+atlas = ExtResource("2_21kid")
+region = Rect2(100, 0, 50, 55)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_co6nv"]
+atlas = ExtResource("2_21kid")
+region = Rect2(150, 0, 50, 55)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_upvlm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s3lk2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gon8l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_utx23")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_co6nv")
+}],
+"loop": false,
+"name": &"impact",
+"speed": 20.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fhwly"]
+radius = 8.0
+
+[node name="Bullet" type="Area2D"]
+script = ExtResource("1_4h0ss")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_upvlm")
+animation = &"impact"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+shape = SubResource("CircleShape2D_fhwly")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

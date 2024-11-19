@@ -10,6 +10,9 @@ var regen_stamina = 25
 
 signal health_updated
 signal stamina_updated
+signal ammo_amount_updated
+
+var ammo_amount = 6
 
 @export var speed = 50.0
 @export var recoil = -5.0
@@ -19,6 +22,10 @@ var new_direction: Vector2 = Vector2.ZERO
 var animation
 var is_attacking = false
 
+@onready var bullet_scene = preload("res://bullet.tscn")
+var bullet_damage = 30
+var bullet_reload_time = 1000
+var bullet_fired_time = 0.5
 
 
 func _process(delta):
@@ -100,15 +107,25 @@ func returned_direction(direction: Vector2):
 	
 func _input(event):
 	if event.is_action_pressed("shoot"):
-		print("shooting")
-		is_attacking = true 
+		
+		var now = Time.get_ticks_msec()
+		if now >= bullet_fired_time and ammo_amount > 0:
+			is_attacking = true 
 		animation = "attack_" + returned_direction(new_direction)
 		animation_sprite.play(animation)
-		
+		bullet_fired_time = now + bullet_reload_time
+		ammo_amount = ammo_amount - 1
+		ammo_amount_updated.emit(ammo_amount)
 		
 		
 func _on_animated_sprite_2d_animation_finished():
 	print("Finished animation")
 	is_attacking = false
+	if animation_sprite.animation.begins_with("attack_"):
+		var bullet = bullet_scene.instantiate()
+		bullet_damage = bullet_damage
+		bullet.direction = new_direction.normalized()
+		bullet.position = position + new_direction.normalized() * 4
+		get_tree().root.get_node("Main").add_child(bullet)
 	
 
