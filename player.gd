@@ -12,7 +12,7 @@ signal health_updated
 signal stamina_updated
 signal ammo_amount_updated
 
-var ammo_amount = 6
+var ammo_amount = 10000
 
 @export var speed = 50.0
 @export var recoil = -5.0
@@ -119,7 +119,7 @@ func _input(event):
 		
 		
 func _on_animated_sprite_2d_animation_finished():
-	print("Finished animation")
+
 	is_attacking = false
 	if animation_sprite.animation.begins_with("attack_"):
 		var bullet = bullet_scene.instantiate()

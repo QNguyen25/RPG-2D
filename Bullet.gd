@@ -2,7 +2,7 @@ extends Area2D
 
 @onready var tilemap = get_tree().root.get_node("Main")
 var direction : Vector2
-var speed = 80
+var speed = 200
 
 
 @onready var animated_sprite = $AnimatedSprite2D
@@ -28,7 +28,7 @@ func _on_body_entered(body):
 	if body.name == "Items":
 		return
 		
-	if body.is.in_group("enemies"):
+	if body.is_in_group("enemies"):
 		return
 		
 	direction= Vector2.ZERO

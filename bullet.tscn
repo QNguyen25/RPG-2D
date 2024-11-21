@@ -43,6 +43,7 @@ animations = [{
 radius = 8.0
 
 [node name="Bullet" type="Area2D"]
+z_index = 3
 script = ExtResource("1_4h0ss")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
