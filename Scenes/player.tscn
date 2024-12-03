@@ -724,7 +724,7 @@ shape = SubResource("CapsuleShape2D_2fdqo")
 position = Vector2(0, -1.25)
 scale = Vector2(1, 0.954545)
 sprite_frames = SubResource("SpriteFrames_02gxf")
-animation = &"walk_angleUp"
+animation = &"hit_front"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 

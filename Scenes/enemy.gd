@@ -7,17 +7,23 @@ var regen_health = 1
 var direction: Vector2
 var new_direction = Vector2(0, 1)
 
+
 var rng = RandomNumberGenerator.new()
 
 var timer = 0
 
 var animation 
+@onready var timer_node = $Timer
+@onready var animation_player = $AnimationPlayer
 @onready var animation_sprite = $AnimatedSprite2D
 @onready var player = $"../Player"
 var is_attacking = false
 
+signal death
+
 func _ready():
 	rng.randomize()
+	animation_sprite.modulate = Color(1, 1, 1, 1)
 
 
 func _physics_process(delta):
@@ -90,4 +96,30 @@ func returned_direction(direction: Vector2):
 		
 	return default_return
 	
+func hit(damage):
+	health -= damage
+	if health > 0:
+		is_attacking = true
+		animation_sprite.play("hit_front")
+		print(animation_sprite.animation)
+		animation_player.play("damage")
+		await get_tree().create_timer(2).timeout
+		is_attacking = false
+		
+	else:
+		timer_node.stop()
+		set_process(false)
+		is_attacking = true
+		direction = Vector2.ZERO
+		animation_sprite.play("death_front")
+		
+		death.emit()
+	
+func _on_animated_sprite_2d_animation_finished():
+	if animation_sprite.animation == "death_front":
+		get_tree().queue_delete(self)
+		is_attacking = false
 
+
+func _on_animation_player_animation_finished(anim_name):
+		animation_sprite.modulate = Color(1, 1, 1, 1)
