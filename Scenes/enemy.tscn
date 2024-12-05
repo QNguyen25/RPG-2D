@@ -611,7 +611,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ur3ge"]
@@ -619,7 +619,7 @@ _data = {
 "damaged": SubResource("Animation_acwn0")
 }
 
-[node name="Enemy" type="CharacterBody2D"]
+[node name="Enemy" type="CharacterBody2D" groups=["enemies"]]
 script = ExtResource("1_q5irr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -629,7 +629,7 @@ shape = SubResource("CapsuleShape2D_2fdqo")
 position = Vector2(0, -1.25)
 scale = Vector2(1, 0.954545)
 sprite_frames = SubResource("SpriteFrames_02gxf")
-animation = &"hit_front"
+animation = &"death_front"
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true

@@ -102,7 +102,7 @@ func hit(damage):
 		is_attacking = true
 		animation_sprite.play("hit_front")
 		print(animation_sprite.animation)
-		animation_player.play("damage")
+		animation_player.play("damaged")
 		await get_tree().create_timer(2).timeout
 		is_attacking = false
 		
