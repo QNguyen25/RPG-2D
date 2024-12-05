@@ -18,3 +18,15 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+	
+func spawn_enemy():
+	var enemy = Global.enemy_scene.instantiate()
+	spawned_enemies.add_child(enemy)
+	
+	
+func is_valid_spawn_location(layer, position):
+	var cell_coords = Vector2(position.x, position.y)
+	if tilemap.get_cell_source_id(Global.WATER_LAYER, cell_coords) != -1 || tilemap.get_cell_source_id(Global.BUILDING_LAYER, cell_coords) != -1 || tilemap.get_cell_source_id(Global.FLIAGE_LAYER, cell_coords) != -1:
+		return false
+	if tilemap.get_cell_source_id(Global.GRASS_LAYER, cell_coords) != -1:
+		return true

@@ -22,7 +22,7 @@ var new_direction: Vector2 = Vector2.ZERO
 var animation
 var is_attacking = false
 
-@onready var bullet_scene = preload("res://bullet.tscn")
+#@onready var bullet_scene = preload("res://bullet.tscn")
 var bullet_damage = 30
 var bullet_reload_time = 1000
 var bullet_fired_time = 0.5
@@ -122,7 +122,7 @@ func _on_animated_sprite_2d_animation_finished():
 
 	is_attacking = false
 	if animation_sprite.animation.begins_with("attack_"):
-		var bullet = bullet_scene.instantiate()
+		var bullet = Global.bullet_scene.instantiate()
 		bullet_damage = bullet_damage
 		bullet.direction = new_direction.normalized()
 		bullet.position = position + new_direction.normalized() * 4

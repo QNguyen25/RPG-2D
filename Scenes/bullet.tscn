@@ -1,22 +1,22 @@
 [gd_scene load_steps=9 format=3 uid="uid://c76is48ywag8o"]
 
-[ext_resource type="Script" path="res://Bullet.gd" id="1_4h0ss"]
-[ext_resource type="Texture2D" uid="uid://c0x06v0gpmfeh" path="res://Assets/FX/Death Explosion.png" id="2_21kid"]
+[ext_resource type="Script" path="res://Bullet.gd" id="1_5bv7i"]
+[ext_resource type="Texture2D" uid="uid://c0x06v0gpmfeh" path="res://Assets/FX/Death Explosion.png" id="2_14lhx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s3lk2"]
-atlas = ExtResource("2_21kid")
+atlas = ExtResource("2_14lhx")
 region = Rect2(0, 0, 50, 55)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gon8l"]
-atlas = ExtResource("2_21kid")
+atlas = ExtResource("2_14lhx")
 region = Rect2(50, 0, 50, 55)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_utx23"]
-atlas = ExtResource("2_21kid")
+atlas = ExtResource("2_14lhx")
 region = Rect2(100, 0, 50, 55)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_co6nv"]
-atlas = ExtResource("2_21kid")
+atlas = ExtResource("2_14lhx")
 region = Rect2(150, 0, 50, 55)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_upvlm"]
@@ -44,7 +44,7 @@ radius = 8.0
 
 [node name="Bullet" type="Area2D" groups=["enemies"]]
 z_index = 3
-script = ExtResource("1_4h0ss")
+script = ExtResource("1_5bv7i")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_upvlm")

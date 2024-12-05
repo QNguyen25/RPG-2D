@@ -1,6 +1,5 @@
-[gd_scene load_steps=85 format=3 uid="uid://dymtehy2fyqun"]
+[gd_scene load_steps=84 format=3 uid="uid://dymtehy2fyqun"]
 
-[ext_resource type="Script" path="res://Scenes/enemy.gd" id="1_q5irr"]
 [ext_resource type="Texture2D" uid="uid://b25ut75nqnjnc" path="res://Assets/Mobs/Cactus/Cactus Back Sheet.png" id="2_i0v60"]
 [ext_resource type="Texture2D" uid="uid://cy3gp0r2jdlxp" path="res://Assets/Mobs/Cactus/Cactus Front Sheet.png" id="3_ghwrf"]
 [ext_resource type="Texture2D" uid="uid://wqxvh25s02bl" path="res://Assets/Mobs/Cactus/Cactus Side Sheet.png" id="4_p3kju"]
@@ -620,7 +619,6 @@ _data = {
 }
 
 [node name="Enemy" type="CharacterBody2D" groups=["enemies"]]
-script = ExtResource("1_q5irr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_2fdqo")
