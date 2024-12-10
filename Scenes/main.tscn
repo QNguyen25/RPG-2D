@@ -5540,4 +5540,4 @@ text = "100
 "
 
 [node name="EnemySpawner" parent="." instance=ExtResource("10_ud508")]
-max_enemies = null
+max_enemies = 20

@@ -26,6 +26,7 @@ func spawn_enemy():
 	var spawned = false
 	
 	while not spawned and attempts < max_attempts:
+		print("trying to spawn enemy")
 		var random_position = Vector2(rng.randi() % tilemap.get_used_rect().size.x, rng.randi() % tilemap.get_used_rect().size.y)
 		if is_valid_spawn_location(Global.GRASS_LAYER, random_position):
 			var enemy = Global.enemy_scene.instantiate()
@@ -35,7 +36,7 @@ func spawn_enemy():
 		else:
 			attempts += 1
 	if attempts >= max_attempts:
-	
+		pass
 	
 	
 func is_valid_spawn_location(layer, position):
@@ -44,3 +45,9 @@ func is_valid_spawn_location(layer, position):
 		return false
 	if tilemap.get_cell_source_id(Global.GRASS_LAYER, cell_coords) != -1:
 		return true
+
+
+func _on_timer_timeout():
+	if enemy_count < max_enemies:
+		spawn_enemy()
+		enemy_count += 1

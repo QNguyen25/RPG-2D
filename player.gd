@@ -10,7 +10,14 @@ var regen_stamina = 25
 
 signal health_updated
 signal stamina_updated
+
 signal ammo_amount_updated
+signal health_amount_updated
+signal stamina_amount_updated
+
+enum Pickups { AMMO, STAMINA, HEALTH }
+var health_pickup_updated
+var stamina_pickup_updated
 
 var ammo_amount = 10000
 
@@ -128,4 +135,8 @@ func _on_animated_sprite_2d_animation_finished():
 		bullet.position = position + new_direction.normalized() * 4
 		get_tree().root.get_node("Main").add_child(bullet)
 	
-
+	
+func add_pickup(item):
+	if item == Pickups.AMMO:
+		ammo_amount = ammo_amount
+		ammo_amount_updated.emit(ammo_amount)
